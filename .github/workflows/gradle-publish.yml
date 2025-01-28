@@ -47,4 +47,4 @@ jobs:
       env:
         USERNAME: ${{ github.actor }}
         GITHUB_ACTOR: ${{ github.actor }}
-        TOKEN: ${{ secrets.REPO_TOKEN }}
+        REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
