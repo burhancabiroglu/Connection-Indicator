@@ -8,7 +8,6 @@
 
 ## Features
 
-- Detects network connectivity changes (online/offline).
 - Easy-to-integrate UI indicator with Jetpack Compose.
 - Fully customizable appearance.
 - Lightweight and efficient.
@@ -17,22 +16,24 @@
 
 ## Installation
 
-To use **Connection Indicator** in your Android project, add the following dependency to your `build.gradle` file if you're using Maven:
+To use **Connection Indicator** in your Android project, add the following dependency to your `build.gradle.kts` file:
 
-```xml
-<dependency>
-  <groupId>com.cabir</groupId>
-  <artifactId>connectionindicator</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
-</dependency>
-```
 
-Alternatively, for Gradle:
+For Gradle(build.gradle.kts):
 
 ```gradle
-implementation "com.cabir:connectionindicator:1.0.0-SNAPSHOT"
+implementation("com.cabir:connectionindicator:1.0.0-SNAPSHOT")
 ```
 
+settings.gradle.kts:
+
+```gradle
+dependencyResolutionManagement {
+    repositories {
+        maven(url = "https://maven.pkg.github.com/burhancabiroglu/connection-indicator")
+    }
+}
+```
 ---
 
 ## Usage
