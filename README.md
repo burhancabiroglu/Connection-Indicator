@@ -79,7 +79,7 @@ ConnectionIndicator(
 
 Here is an example of the connection indicator in action:
 
-![Connection Indicator](./art/sample.png)
+![Connection Indicator](./art/art.gif)
 
 ---
 

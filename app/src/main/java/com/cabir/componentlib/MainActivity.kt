@@ -50,6 +50,7 @@ fun ExampleScreen() {
             level = level,
             barCount = barCount,
             barWidth = 12.dp,
+            barGap = 6.dp,
             height = 100.dp
         )
     }
