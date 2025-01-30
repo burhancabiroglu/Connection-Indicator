@@ -1,11 +1,15 @@
 package com.cabir.connectionindicator.component
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -38,7 +42,17 @@ fun ConnectionIndicator(
     activeColor: Color = ConnectionIndicatorDefaults.BAR_COLOR_ACTIVE,
     inactiveColor: Color = ConnectionIndicatorDefaults.BAR_COLOR_INACTIVE
 ) {
+    val safeLevel = level.coerceIn(0, barCount)
     val calculatedWidth = (barWidth + barGap) * barCount + (barCount + 1).dp
+
+    val animatedColors = List(barCount) { i ->
+        animateColorAsState(
+            targetValue = if (i < safeLevel) activeColor else inactiveColor,
+            animationSpec = tween(durationMillis = 500, easing = FastOutSlowInEasing),
+            label = "BarColorAnimation"
+        ).value
+    }
+
     Canvas(
         modifier
             .offset(y = (-1 * height.value / 8).dp)
@@ -53,13 +67,13 @@ fun ConnectionIndicator(
         val stepWidth = canvasWidth / barCount
         val stepHeight = (canvasHeight - minHeight) / barCount
 
-        for (i in 0..<barCount) {
+        for (i in 0..<barCount) @Composable {
             val endY = minHeight + stepHeight * i
             val startX = barWidthPx / 2 + 2f
             drawLine(
                 start = Offset(x = (i * stepWidth) + startX, y = canvasHeight),
                 end = Offset(x = (i * stepWidth) + startX, y = canvasHeight - endY),
-                color = if (i < level) activeColor else inactiveColor,
+                color =  animatedColors[i],//if (i < safeLevel) activeColor else inactiveColor,
                 cap = StrokeCap.Round,
                 strokeWidth = barWidthPx
             )
